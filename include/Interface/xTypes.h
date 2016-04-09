@@ -1,9 +1,8 @@
 /*
 * @note		：跨平台类型定义及相关头文件
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
-*/
+*
+/
+
 #ifndef _XTYPES_H_INCLUDE_
 #define _XTYPES_H_INCLUDE_
 

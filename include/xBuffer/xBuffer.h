@@ -1,8 +1,5 @@
 /*
 * @note		：通用内存块及内存池实现
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 *
 * --------------------------------------------------------------------------------
 * @mark		：
@@ -25,6 +22,7 @@
 *	g_pool.free(t);
 *	g_pool.clear();
 */
+
 #ifndef _XBUFFER_H_INCLUDE_
 #define _XBUFFER_H_INCLUDE_
 

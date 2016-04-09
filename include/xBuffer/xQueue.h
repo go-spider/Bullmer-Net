@@ -1,11 +1,3 @@
-/*
-* @note		：队列
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
-* @copyright(C) 版权归作者所有
-*
-*/
 #ifndef _XQUEUE_H_INCLUDE_
 #define _XQUEUE_H_INCLUDE_
 

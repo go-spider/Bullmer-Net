@@ -1,10 +1,8 @@
 /*
 * @note		：作为 TCP 服务器建立的与客户端连接对象代理基类 xClient
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 * @mark		：对外接口 xClient，xClientFactory 供外部继承
 */
+
 #ifndef _XCLIENT_H_INCLUDE_
 #define _XCLIENT_H_INCLUDE_
 

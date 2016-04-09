@@ -1,8 +1,5 @@
 /*
 * @note		：更灵活通用的内存池扩展实现
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 *
 * --------------------------------------------------------------------------------
 * @mark		：
@@ -61,6 +58,7 @@
 *  pool.clear();
 *
 */
+
 #ifndef _XBUFFEREX_H_INCLUDE_
 #define _XBUFFEREX_H_INCLUDE_
 
