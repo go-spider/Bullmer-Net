@@ -1,22 +1,22 @@
 /*
-* @note		：通用内存块及内存池实现
+* 		：通用内存块及内存池实现
 *
 * --------------------------------------------------------------------------------
-* @mark		：
+* 		：
 *			优点：支持追加缓存
 *			缺点：
 *				1.不支持不同类型结构或类对象共存在一个池上
 *				2.由于是字节分配，无法调用构造函数及运行时类型信息(dynamic_cast<TYPE>失效)检查，不支持对象虚函数调用
 * --------------------------------------------------------------------------------
 *
-* @example.1: 含追加缓存
+* 1: 含追加缓存
 *	xBuffer<io_t>  g_pool(5,1024);
 *	node_t <io_t>* t = g_pool.alloc();
 *	t->data.buf = t->get_offset();
 *	t->data.len = g_pool.get_offset_size();
 *	g_pool.free(t);
 *	g_pool.clear();
-* @example.2: 无追加缓存
+* 2: 无追加缓存
 *	xBuffer<xClient> g_pool(20,0);
 *	node_t<xClient>* t = g_pool.alloc();
 *	g_pool.free(t);
@@ -29,19 +29,17 @@
 #include "../xNet/xNetDll.h"
 #include "../xThread/xThread.h"
 
-//------------------------------------------------------------------------
 // node_t<TYPE> 节点
-//------------------------------------------------------------------------
 template < class TYPE > class XNET_API node_t
 {
 public:
-	// @note: 返回节点数据部分
+	// 返回节点数据部分
 	inline TYPE * get_data(void)
 	{
 //		return (TYPE *) (char *)this;
 		return (TYPE *) (char *)&this->data;
 	}
-	// @note: 返回追加缓存首址
+	// 返回追加缓存首址
 	inline char * get_offset(void)
 	{
 //		return (char *)(this + 1);
@@ -75,11 +73,11 @@ public:
 		return (node_t<TYPE> *)((char *)this + sizeof(block_node_t));
 	}
 
-	// @note: 申请单(一)个内存块
-	// @param header <block_node_t*&> : 块头
-	// @param tail   <block_node_t*&> : 块尾
-	// @param offset <u32_t>		  : 追加缓存大小 sizeof(node_t<TYPE>) + offset
-	// @param N      <u32_t>          : 块所包含的节点(sizeof(node_t<TYPE>) + offset)数
+	// 申请单(一)个内存块
+	// header <block_node_t*&> : 块头
+	// tail   <block_node_t*&> : 块尾
+	// offset <u32_t>		  : 追加缓存大小 sizeof(node_t<TYPE>) + offset
+	// N      <u32_t>          : 块所包含的节点(sizeof(node_t<TYPE>) + offset)数
 	static block_node_t * create(block_node_t*& header, block_node_t*& tail, u32_t offset, u32_t N)
 	{
 		//////////////////////////////////////////////////////////////////////////
@@ -107,7 +105,7 @@ public:
 		return block;
 	}
 
-	// @note: 清理内存块
+	//清理内存块
 	void clear(void)
 	{
 		block_node_t * block = this;
@@ -129,8 +127,8 @@ public:
 template <class TYPE> class XNET_API xBuffer
 {
 public:
-	// @param blocksize <u32_t> : 单个内存块中所包含的节点(node_t<TYPE>)数，每次申请一个内存块
-	// @param offset    <u32_t> : 追加缓存大小 sizeof(node_t<TYPE>) + offset
+	// blocksize <u32_t> : 单个内存块中所包含的节点(node_t<TYPE>)数，每次申请一个内存块
+	// offset    <u32_t> : 追加缓存大小 sizeof(node_t<TYPE>) + offset
 	xBuffer<TYPE>(u32_t blocksize = 20,u32_t offset = 0)
 		:_readable_event(TRUE,FALSE),_empty_event(TRUE,FALSE)
 	{
@@ -142,16 +140,16 @@ public:
 		_head_block = _tail_block = NULL;
 	}
 
-	// @note: 从池中申请内存
+	// 从池中申请内存
 	inline node_t<TYPE>* alloc(void)
 	{
 		return this->_create(NULL,NULL);
 	}
 	
-	// @note: 入队：数据来了，写入数据(生产者)
-	// @param data <TYPE const*> : 数据
-	// @param buf  <char const*> : 追加数据(接口预留)
-	// @param len  <u32_t>       : 追加数据大小(接口预留)
+	// 入队：数据来了，写入数据(生产者)
+	// data <TYPE const*> : 数据
+	// buf  <char const*> : 追加数据(接口预留)
+	// len  <u32_t>       : 追加数据大小(接口预留)
 	node_t<TYPE> * enqueue(TYPE const* data, char const* buf = NULL, u32_t len = 0)
 	{
 		node_t<TYPE>* node = NULL;

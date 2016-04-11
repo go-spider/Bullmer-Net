@@ -1,20 +1,16 @@
 /*
-* @note		：更灵活通用的内存池扩展实现
+*  更灵活通用的内存池扩展实现
 *
-* --------------------------------------------------------------------------------
-* @mark		：
-*			 优点：
+*	优点：
 *				 1.支持追加缓存，并且支持任意大小(追加数据有多大就追加多大缓存,不过相同结构类型尽量追加一样大，如1024字节)
 *				 2.支持不同类型结构或类对象共存在一个池上
-*			 缺点：由于是字节分配，不支持对象虚函数调用
-*			 注意：由于是字节分配，无法调用构造函数及运行时类型信息(dynamic_cast<TYPE>失效)检查，
-*				  不过丝毫不影响不同类型数据的正常读取!!!，数据入队列时指定唯一标识类或TYPE结构的 typeid，
-*				  数据出队列时即可获取指定 typeid 相关类型的数据!!!!，另外，可能遇到TYPE结构类型不同，
-*				  但是size大小相同的不同TYPE对象数据压入同一个池中，所以尽量避免用 sizeof(TYPE) 作为 typeid，
-*				  当然在预先知道没有相同size大小的不同TYPE结构或类时是可以用的，所以最好用唯一标识类或结构体的静态成员作为 typeid
-* --------------------------------------------------------------------------------
+*	缺点：由于是字节分配，不支持对象虚函数调用
 *
-* @example  ：
+*	注意：由于是字节分配，无法调用构造函数及运行时类型信息(dynamic_cast<TYPE>失效)检查，
+*		  不过丝毫不影响不同类型数据的正常读取!!!，数据入队列时指定唯一标识类或TYPE结构的 typeid，
+*		  数据出队列时即可获取指定 typeid 相关类型的数据!!!!，另外，可能遇到TYPE结构类型不同，
+*		  但是size大小相同的不同TYPE对象数据压入同一个池中，所以尽量避免用 sizeof(TYPE) 作为 typeid，
+*		  当然在预先知道没有相同size大小的不同TYPE结构或类时是可以用的，所以最好用唯一标识类或结构体的静态成员作为 typeid
 *
 *  struct t1_t t1;
 *  struct t2_t t2;
@@ -73,28 +69,24 @@ extern u32_t const ptr_size;
 extern u32_t const ptr_sizex2;
 extern u32_t const block_size;
 
-//------------------------------------------------------------------------
-// x_node_t 节点
-//------------------------------------------------------------------------
 class XNET_API x_node_t
 {
 public:
-	// @note: 返回节点数据部分
 	inline void * get_data(void)
 	{
 		return (void *)(char *)this;
 	}
-	// @note: 返回 prev 指针
+
 	inline x_node_t ** get_prev_ptr(u32_t type_size)
 	{
 		return (x_node_t **)((char *)this+type_size);
 	}
-	// @note: 返回 next 指针
+
 	inline x_node_t ** get_next_ptr(u32_t type_size)
 	{
 		return (x_node_t **)((char *)this+type_size + ptr_size);
 	}
-	// @note: 返回追加缓存首址
+
 	inline char * get_offset(u32_t type_size)
 	{
 		return (char *)((char *)this + type_size + ptr_sizex2);
@@ -108,12 +100,12 @@ protected:
 	// 这里和xBuffer区别就是TYPE和指针都隐藏，为什么这样做呢？这里解释下，因为我们可能用一个内存池保存不同类型的数据，
 	// 所以呢，TYPE 类型不能定死，也不能用模板，俗话说模板模板，就是按样板定制的来，所以模板的缺点还是很明显的，
 	// 由于支持不同size类型数据，所以指针位置就不能固定死了，让其动态变化，所以成员定义都是无形的，所谓以无形为有形，
-	// 看来这句出自偶像李小龙口中的话不仅适用于武术界，同样也适用于IT界，李小龙不愧为一代哲学大师，武术大师，国人的骄傲，典范!可惜天妒英才!(扯远了！)
 };
 
 //------------------------------------------------------------------------
 // x_block_node_t 单(一)个内存块，由N个节点(sizeof(x_node_t<TYPE>) + offset)构成
 //------------------------------------------------------------------------
+
 class XNET_API x_block_node_t
 {
 public:
@@ -129,11 +121,11 @@ public:
 	// @param type_size	  <u32_t>		     : TYPE结构大小
 	// @param offset_size <u32_t>		     : 追加缓存大小 sizeof(x_node_t<TYPE>) + offset_size
 	// @param N			  <u32_t>            : 块所包含的节点(sizeof(x_node_t<TYPE>) + offset_size)数
+
 	static x_block_node_t * create(x_block_node_t*& header, x_block_node_t*& tail, u32_t type_size, u32_t offset_size, u32_t N)
 	{
-		///////////////////////////////////////////////////////////////////////////////
-		/// sizeof(x_block_node_t) + (type_size + 2 * sizeof(x_node_t*) + offset_size) * N
-		///////////////////////////////////////////////////////////////////////////////
+		// sizeof(x_block_node_t) + (type_size + 2 * sizeof(x_node_t*) + offset_size) * N
+			
 		x_block_node_t * block = (x_block_node_t *)new char[
 				 block_size +
 				(type_size  + ptr_sizex2 + offset_size) * N];
@@ -155,7 +147,7 @@ public:
 			return block;
 	}
 
-	// @note: 清理内存块
+	//清理内存块
 	void clear(void)
 	{
 		x_block_node_t * block = this;
@@ -171,9 +163,8 @@ public:
 	x_block_node_t * prev,*next;
 };
 
-// ------------------------------------------------------------------------
 // xBufferEx 扩展内存池
-// ------------------------------------------------------------------------
+
 class XNET_API xBufferEx
 {
 	
@@ -193,7 +184,8 @@ public:
 		u32_t type_size, offset_size;	// 结构大小，追加缓存大小
 	};
 	
-	// @param blocksize <u32_t> : 单个内存块中所包含的节点(x_node_t)数，每次申请一个内存块
+	//blocksize <u32_t> : 单个内存块中所包含的节点(x_node_t)数，每次申请一个内存块
+
 	xBufferEx(u32_t blocksize = 20)
 	{
 		this->_head_node.clear();
@@ -208,20 +200,18 @@ public:
 	inline x_node_t * get_head_block_data() { return this->_head_block->get_data(); }
 	inline x_node_t * get_tail_block_data() { return this->_tail_block->get_data(); }
 
-	// @note: 从池中申请内存
-	// @param type_size   <u32_t> : TYPE结构或类大小
-	// @param offset_size <u32_t> : 追加缓存大小
+	// 从池中申请内存
 	inline x_node_t* alloc(u32_t type_size, u32_t offset_size)
 	{
 		return this->_create(type_size,offset_size,NULL,NULL);
 	}
 
-	// @note: 入队：数据来了，写入数据
-	// @param data  <TYPE const*> : 数据
-	// @param type_id     <u64_t> : 唯一标识TYPE结构或类
-	// @param type_size   <u32_t> : TYPE结构或类大小
-	// @param offset_size <u32_t> : 追加缓存大小
-	// @param buf   <char const*> : 追加缓存数据(接口预留)
+	// 入队:写入数据
+	// data  <TYPE const*> : 数据
+	// type_id     <u64_t> : 唯一标识TYPE结构或类
+	// type_size   <u32_t> : TYPE结构或类大小
+	// offset_size <u32_t> : 追加缓存大小
+	// buf   <char const*> : 追加缓存数据(接口预留)
 	x_node_t * enqueue(void const* data, u64_t type_id, u32_t type_size, u32_t offset_size,char const* buf = NULL)
 	{
 		x_node_t* node = NULL;
@@ -250,15 +240,15 @@ public:
 		
 		return node;
 	}
-	// @note: 等待数据
+	// 等待数据
 	x_node_t * wait_data(u64_t type_id,u32_t type_size)
 	{
 		__wait_signal(this->_readable_event,INFINITE);
 		return dequeue(type_id,type_size);
 	}
-	// @note: 出队：有数据了，读出数据(提取指定结构类型的数据)
-	// @param type_id     <u64_t> : 唯一标识TYPE结构或类
-	// @param type_size   <u32_t> : TYPE结构或类大小
+	// 出队：读出数据(提取指定结构类型的数据)
+	// type_id     <u64_t> : 唯一标识TYPE结构或类
+	// type_size   <u32_t> : TYPE结构或类大小
 	x_node_t* dequeue(u64_t type_id,u32_t type_size)
 	{
 		x_node_t* node = NULL;
@@ -304,15 +294,16 @@ public:
 		return node;
 	}
 
-	// @note: 释放内存到池
-	// @param type_id     <u64_t> : 唯一标识TYPE结构或类
-	// @param type_size   <u32_t> : TYPE结构或类大小
-	// @param offset_size <u32_t> : 追加缓存大小
+	// 释放内存到池
+	// type_id     <u64_t> : 唯一标识TYPE结构或类
+	// type_size   <u32_t> : TYPE结构或类大小
+	// offset_size <u32_t> : 追加缓存大小
 	inline void free(x_node_t* node, u64_t type_id, u32_t type_size, u32_t offset_size)
 	{
 		u64_t size_key = type_size + offset_size;
-// 		bzero(node->get_data(), type_size);
-// 		bzero(node->get_offset(type_size), offset_size);
+
+		// bzero(node->get_data(), type_size);
+		// bzero(node->get_offset(type_size), offset_size);
 		bzero(node, type_size + ptr_sizex2 + offset_size);
 		*node->get_prev_ptr(type_size) = NULL;
 		*node->get_next_ptr(type_size) = this->_free_list[size_key];
@@ -321,7 +312,7 @@ public:
 		this->_free_list[size_key] = node;
 	}
 
-	// @note: 清理内存池
+	// 清理内存池
 	inline void clear(void)
 	{
 		this->_head_node.clear();
@@ -331,7 +322,7 @@ public:
 		_head_block = _tail_block = NULL;
 	}
 protected:
-	// @param 申请内存块
+	// 申请内存块
 	inline x_node_t * _create(u32_t type_size, u32_t offset_size, x_node_t * prev = NULL, x_node_t * next = NULL)
 	{
 		this->_free_list_mutex.enter();
@@ -349,8 +340,8 @@ protected:
 			for(u32_t cnt = this->_block_size; cnt > 0;
 				--cnt, node -= size_x_node_t)
 			{
-				// 			bzero(((x_node_t *)node)->get_data(), type_size);
-				// 			bzero(((x_node_t *)node)->get_offset(type_size), offset_size);
+				// bzero(((x_node_t *)node)->get_data(), type_size);
+				// bzero(((x_node_t *)node)->get_offset(type_size), offset_size);
 				bzero(node, (u32_t)size_x_node_t);
 
 				*((x_node_t *)node)->get_prev_ptr(type_size) = NULL;

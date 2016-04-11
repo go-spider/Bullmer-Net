@@ -1,22 +1,22 @@
 /*
-* @note		：通用内存块及内存池实现
+* 通用内存块及内存池实现
 *
 * --------------------------------------------------------------------------------
-* @mark		：
+*
 *			优点：支持追加缓存
 *			缺点：
 *				1.不支持不同类型结构或类对象共存在一个池上
 *				2.由于是字节分配，无法调用构造函数及运行时类型信息(dynamic_cast<TYPE>失效)检查，不支持对象虚函数调用
 * --------------------------------------------------------------------------------
 *
-* @example.1: 含追加缓存
+* 1: 含追加缓存
 *	xBuffer<io_t>  g_pool(5,1024);
 *	p_node_t <io_t>* t = g_pool.alloc();
 *	t->data.buf = t->get_offset();
 *	t->data.len = g_pool.get_offset_size();
 *	g_pool.free(t);
 *	g_pool.clear();
-* @example.2: 无追加缓存
+* 2: 无追加缓存
 *	xBuffer<xClient> g_pool(20,0);
 *	p_node_t<xClient>* t = g_pool.alloc();
 *	g_pool.free(t);
@@ -35,7 +35,7 @@
 class XNET_API p_node_t
 {
 public:
-	// @note: 返回节点数据部分
+	// 返回节点数据部分
 	inline char* get_data(void)
 	{
 //		return (char *)(this + 1);
