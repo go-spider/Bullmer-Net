@@ -1,9 +1,7 @@
 /*
 * @note		：跨平台socket宏定义及相关函数实现
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 */
+
 #ifndef _XSOCKET_H_INCLUDE_
 #define _XSOCKET_H_INCLUDE_
 

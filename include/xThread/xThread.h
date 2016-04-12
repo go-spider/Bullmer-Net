@@ -1,8 +1,7 @@
 /*
 * @note		：同步事件/信号量/互斥/临界区/线程/线程池实现(win32/linux)，不支持unicode
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
 */
+
 #ifndef _XTHREAD_H_INCLUDE_
 #define _XTHREAD_H_INCLUDE_
 
@@ -10,7 +9,7 @@
 #include <Windows.h>
 #include <process.h>
 #else
-// linux 手测参考：http://www.mkssoftware.com/docs
+
 #include <sched.h>
 #include <pthread.h>
 #include <semaphore.h> // POSIX信号量(用户态)
