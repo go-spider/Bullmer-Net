@@ -1,9 +1,7 @@
 /*
 * @note		：服务器参数配置
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 */
+
 #ifndef _XNET_CONFIG_H_INCLUDE_
 #define _XNET_CONFIG_H_INCLUDE_
 

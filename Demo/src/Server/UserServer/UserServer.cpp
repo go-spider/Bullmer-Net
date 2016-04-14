@@ -1,8 +1,5 @@
 /*
 * @note		: 用户服务器
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 * @mark		：用到了四个类：xClient，xClientFactory，xConnection，xConnectionFactory 供外部继承(位于/xNet/目录下)
 *
 */
