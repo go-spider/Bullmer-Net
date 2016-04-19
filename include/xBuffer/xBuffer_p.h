@@ -16,6 +16,7 @@
 *	t->data.len = g_pool.get_offset_size();
 *	g_pool.free(t);
 *	g_pool.clear();
+
 * 2: ÎÞ×·¼Ó»º´æ
 *	xBuffer<xClient> g_pool(20,0);
 *	p_node_t<xClient>* t = g_pool.alloc();

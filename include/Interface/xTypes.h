@@ -32,6 +32,7 @@ typedef unsigned long		ulong_t;
 #include <map>
 #include <stack>
 #include <queue>
+
 using namespace std;
 
 #ifndef WIN32
