@@ -1,11 +1,9 @@
 /*
 * @note		：iocp服务器
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 * @mark		：三个类：xNetFactory，xClient，xConnection 供外部继承(位于/xNet/目录下)
 *
 */
+
 #ifndef _XIOCPCLIENT_H_INCLUDE_
 #define _XIOCPCLIENT_H_INCLUDE_
 
