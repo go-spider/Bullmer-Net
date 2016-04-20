@@ -1,6 +1,6 @@
 /*
-* @note		: 用户服务器
-* @mark		：用到了四个类：xClient，xClientFactory，xConnection，xConnectionFactory 供外部继承(位于/xNet/目录下)
+* @note: 用户服务器
+* @mark：用到了四个类：xClient，xClientFactory，xConnection，xConnectionFactory 供外部继承(位于/xNet/目录下)
 *
 */
 
@@ -27,6 +27,7 @@ static C2S_Server::map_uID_C2S_client g_sID_S2P_client;
 //------------------------------------------------------------------------
 // C2SClient
 //------------------------------------------------------------------------
+
 C2SClient::C2SClient(C2S_Server* factory):xClient(factory),_uid(0)
 {
 
@@ -81,6 +82,7 @@ C2SClient::~C2SClient(void)
 //------------------------------------------------------------------------
 // C2S_Server
 //------------------------------------------------------------------------
+
 C2S_Server::C2S_Server(void):m_sid(1),m_pid(1)
 {
 
