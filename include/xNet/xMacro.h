@@ -1,9 +1,7 @@
 /*
 * @note		：跨平台网络通信框架相关头文件
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 */
+
 #ifndef _XMACRO_USER_H_INCLUDE_
 #define _XMACRO_USER_H_INCLUDE_
 

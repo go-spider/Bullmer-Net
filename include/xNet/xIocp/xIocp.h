@@ -1,6 +1,5 @@
 /*
 * @note		：iocp服务器
-* @author	：Andy.Ro
 * @mark		：三个类：xNetFactory，xClient，xConnection 供外部继承(位于/xNet/目录下)
 */
 

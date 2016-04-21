@@ -1,9 +1,7 @@
 /*
 * @note		：xNetFactory 代理服务类
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 */
+
 #ifndef _XFACTORY_H_INCLUDE_
 #define _XFACTORY_H_INCLUDE_
 

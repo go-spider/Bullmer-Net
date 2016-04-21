@@ -1,9 +1,7 @@
 /*
 * @note		：网络结构体定义
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 */
+
 #ifndef _XNET_H_INCLUDE_
 #define _XNET_H_INCLUDE_
 

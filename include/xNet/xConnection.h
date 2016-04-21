@@ -1,10 +1,8 @@
 /*
 * @note		：作为 TCP 客户端建立的与服务器连接对象代理基类 xConnection
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
 * @mark		：对外接口 xConnection，xConnectionFactory 供外部继承
 */
+
 #ifndef _XCONNECTION_H_INCLUDE_
 #define _XCONNECTION_H_INCLUDE_
 

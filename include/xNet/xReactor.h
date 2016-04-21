@@ -1,10 +1,7 @@
 /*
 * @note		：xReactor 响应触发器
-* @author	：Andy.Ro
-* @email	：Qwuloo@qq.com
-* @date		：2014-06
-* @copyright(c) 版权及解释权归作者所有
 */
+
 #ifndef _XREACTOR_H_INCLUDE_
 #define _XREACTOR_H_INCLUDE_
 
