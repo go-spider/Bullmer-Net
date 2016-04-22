@@ -106,6 +106,7 @@ protected:
 	// @param ipaddr <ulong_t>: 网络字节序ipaddr
 	// @param port   <u16_t>  : 主机字节序port
 	int _connect_one(ulong_t ipaddr, u16_t port);
+
 public:
 	BOOL _shutdown;
 	HANDLE _hComPort;					// 完成端口
@@ -115,6 +116,7 @@ public:
 	ESMT::xThreadPool _workers;			// 工作者线程池
 	xConnectionFactory * _factory;		// 代理服务对象
 	ESMT::xMutex         _factory_cs;
+
 protected:
 	BOOL _init_LPFN_PTR(void);
 	LPFN_CONNECTEX _lpfnConnectEx;
