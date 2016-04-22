@@ -65,21 +65,25 @@ public:
 		//////////////////////////////////////////////////////////////////////////
 		// 禁止使用 object = this->_list[fd]，键值对会被隐性添加进map
 		//////////////////////////////////////////////////////////////////////////
-		this->_list_cs.enter();
-		itor_fd_conncection_t itor = this->_list.find(fd);
-		xConnection * ptr = (itor != this->_list.end())?itor->second:0;
-		this->_list_cs.leave();
+		
+		this -> _list_cs.enter();
+		itor_fd_conncection_t itor = this -> _list.find(fd);
+		xConnection *ptr = (itor != this -> _list.end()) ? itor -> second : 0;
+		this -> _list_cs.leave();
 
 		return ptr;
 	}
-	xConnection * add(xConnection * object);
-	xConnection * del(xConnection * object);
+
+	xConnection *add(xConnection *object);
+	xConnection *del(xConnection *object);
+
 public:
 	virtual xConnection * create(void);
 	virtual void free(xConnection * object);
 	virtual void onAdd(xConnection * object);
 	virtual void onDel(xConnection * object);
 	void notifyCloseAll(void);
+
 public:
 #if 0
 	//------------------------------------------------------------------------
@@ -105,6 +109,7 @@ public:
 #endif
 	map_fd_conncection_t _list;
 	ESMT::xSection    _list_cs;
+
 public:
 	virtual ~xConnectionFactory(void);
 };
