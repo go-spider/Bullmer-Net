@@ -54,8 +54,10 @@ public:
 		xWorker(void * argument);
 		u32_t __fastcall run(void * argument);
 	};
+
 public:
 	static xIocp * shareObject(xClientFactory* factory);
+
 private:
 	// @note: 指定代理服务对象
 	// @param service <xClientFactory*> : 代理服务对象
@@ -65,6 +67,7 @@ private:
 	//	xIocp iocp(&factory);
 	//
 	xIocp(xClientFactory* factory);
+
 public:
 	// @note：作为 TCP 服务器监听远程连接
 	// @param port	<u16_t> : 起始端口
