@@ -364,9 +364,10 @@ protected:
 	block_node_t<TYPE> * _tail_block;	// 内存块尾
 	ESMT::xMutex		 _list_mutex;	// 同步块链表
 public:
+
 	inline ~xBuffer<TYPE>(void)
 	{
-		this->clear();
+		this -> clear();
 	}
 };
 
