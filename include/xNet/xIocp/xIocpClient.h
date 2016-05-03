@@ -39,8 +39,10 @@ public:
 		xWorker(void * argument);
 		u32_t __fastcall run(void * argument);
 	};
+
 public:
 	static xIocpClient * shareObject(xConnectionFactory* factory);
+
 private:
 	// @note: 指定代理服务对象
 	// @param service <xConnectionFactory*> : 代理服务对象
@@ -53,6 +55,7 @@ private:
 	void made(sock_t * sock, node_t<io_t>* io);
 	void lost(node_t<io_t>* io, u32_t err);
 	void recv(node_t<io_t>* io);
+
 public:
 	// @note: 作为 TCP 客户端连接远程服务器
 	// @param ipaddr <ulong_t> : 目标主机ip
