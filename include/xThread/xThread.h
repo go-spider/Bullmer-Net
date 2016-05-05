@@ -69,6 +69,9 @@ namespace ESMT {
 	// xEvent 多线程事件同步
 	// linux 下参考：http://blog.csdn.net/ffilman/article/details/4871920
 	//------------------------------------------------------------------------
+
+	//唤醒丢失问题的思考
+
 	class XNET_API xEvent : public xSyncObject
 	{
 #define		__signaled(e)		( (e).unlock() )
