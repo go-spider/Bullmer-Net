@@ -307,7 +307,8 @@ namespace ESMT {
 		typedef std::map<u32_t,xThread*> map_id_thread_t;
 		typedef map_id_thread_t::iterator itor_id_thread_t;
 	public:
-		/*XNET_API*/ xThreadPool(void);
+		/*XNET_API*/ 
+		xThreadPool(void);
 
 		xThread * pop_idle();
 		void push_idle(xThread * thread);
@@ -324,7 +325,9 @@ namespace ESMT {
 		size_t size(void);
 		
 	public:
-		/*XNET_API*/ ~xThreadPool(void);
+		/*XNET_API*/ 
+		~xThreadPool(void);
+
 	private:
 		map_id_thread_t _thread_pool;
 		ESMT::xSection	_thread_pool_cs;
