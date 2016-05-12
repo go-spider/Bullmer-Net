@@ -100,8 +100,8 @@ XNET_API int split_packet(char const* buf, u64_t bytes,
 						send_callback_func callback_send,
 						xNetObject* pthis);
 
-// @note：粘包分离，缝包(前后半包拼接)
-// @mark：接收端：并发接收 -> 粘包分离，缝包(前后半包拼接) -> 拼包/组包：去掉各数据包包头并拼接整体数据 -> 通知接收回调(整体接收)
+// @note:粘包分离，缝包(前后半包拼接)
+// @mark:接收端:并发接收 -> 粘包分离，缝包(前后半包拼接) -> 拼包/组包：去掉各数据包包头并拼接整体数据 -> 通知接收回调(整体接收)
 XNET_API int separate_continuous_packet(char const* buf, ulong_t bytes,
 									  recv_callback_func callback_recv,
 									  xNetObject* pthis);
