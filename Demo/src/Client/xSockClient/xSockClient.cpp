@@ -1,4 +1,3 @@
-
 #include "xSockClient.h"
 #include "../xUtils/xUtils.h"
 
@@ -84,6 +83,7 @@ static inline int send_callback_func_this(xNetObject* pthis, char const* buf, ul
 //------------------------------------------------------------------------
 // xSockClient
 //------------------------------------------------------------------------
+
 xSockClient::xSockClient(xClientSocketPool * pool):xNetObject(),_sock_pool(pool),_avail_event(FALSE, TRUE)
 {
 	init_socket_lib();
@@ -236,9 +236,6 @@ static inline int global_thread_recv(xSockClient * pthis)
 	return NO_ERROR;
 }
 
-//------------------------------------------------------------------------
-// xReader
-//------------------------------------------------------------------------
 xClientSocketPool::xReader::xReader(void * argument):ESMT::xThread(argument)
 {
 }
@@ -327,9 +324,6 @@ u32_t xClientSocketPool::xReader::run(void * argument)
 	return 0;
 }
 
-//------------------------------------------------------------------------
-// xClientSocketPool
-//------------------------------------------------------------------------
 xClientSocketPool::xClientSocketPool(void)
 {
 	init_socket_lib();
